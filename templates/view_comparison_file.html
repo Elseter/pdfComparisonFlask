@@ -1,0 +1,45 @@
+<head>
+  <meta charset="utf-8">
+  <title>View Comparison File</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+  <a href="{{ url_for('index') }}">Home</a>
+  <a href="{{ url_for('saved_files') }}">Saved Files</a>
+  <a href="{{ url_for('compare_files') }}">Compare PDFs</a>
+  <a href="{{ url_for('comparison_files') }}">Comparisons</a>
+</div>
+
+<div class="main">
+  <h1>{{ filename }}</h1>
+  <div class="comparison-content">
+    {% for entry in data %}
+    <div class="comparison-entry">
+      <div class="left-container">
+        <div class="question1-item">
+          <span class="key"></span>
+          <span class="value">{{ entry.question1 }}</span>
+        </div>
+        <div class="question1-page-item">
+          <span class="key">Page:</span>
+          <span class="value">{{ entry.question1_page }}</span>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="matches-item">
+          <ul>
+            {% for match in entry.matches %}
+            <li>{{ match.question2 }}, {{match.question2_page}}, {{match.similarity}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>

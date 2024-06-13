@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Compare PDFs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('saved_files') }}">Saved Files</a>
+    <a href="{{ url_for('compare_files') }}">Compare PDFs</a>
+    <a href="{{ url_for('comparison_files') }}">Comparisons</a>
+
+</div>
+<div class="main">
+    <h1>Compare PDFs</h1>
+    <form method="post">
+        <label for="pdf1">Select first PDF:</label>
+        <select name="pdf1" id="pdf1">
+            {% for file in files %}
+            <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="pdf2">Select second PDF:</label>
+        <select name="pdf2" id="pdf2">
+            {% for file in files %}
+            <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="similarity_score">Similarity Score:</label>
+        <input type="text" name="similarity_score" id="similarity_score">
+        <br>
+        <input type="submit" value="Compare">
+    </form>
+</div>
+</body>
+</html>

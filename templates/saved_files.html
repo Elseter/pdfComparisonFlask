@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saved Files</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function openRenamePopup(filename) {
+            const newName = prompt("Enter the new name for the file:", filename);
+            if (newName && newName !== filename) {
+                document.getElementById('renameForm').new_name.value = newName;
+                document.getElementById('renameForm').filename.value = filename;
+                document.getElementById('renameForm').submit();
+            }
+        }
+
+        function confirmDelete(filename) {
+            if (confirm("Are you sure you want to delete " + filename + "?")) {
+                document.getElementById('deleteForm').filename.value = filename;
+                document.getElementById('deleteForm').submit();
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('saved_files') }}">Saved Files</a>
+    <a href="{{ url_for('compare_files') }}">Compare PDFs</a>
+    <a href="{{ url_for('comparison_files') }}">Comparisons</a>
+</div>
+
+<div class="main">
+    <h1>Saved Files</h1>
+    {% if files %}
+        <ul>
+            {% for file in files %}
+                <li>
+                    <a href="{{ url_for('view_file', filename=file) }}">{{ file }}</a>
+                    <img src="{{ url_for('static', filename='delete-icon.png') }}" alt="Delete" onclick="confirmDelete('{{ file }}')">
+                    <img src="{{ url_for('static', filename='rename-icon.png') }}" alt="Rename" onclick="openRenamePopup('{{ file }}')">
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No files have been uploaded yet.</p>
+    {% endif %}
+</div>
+
+<form id="renameForm" action="{{ url_for('rename_file') }}" method="post" style="display:none;">
+    <input type="hidden" name="filename">
+    <input type="hidden" name="new_name">
+</form>
+
+<form id="deleteForm" action="{{ url_for('delete_file') }}" method="post" style="display:none;">
+    <input type="hidden" name="filename">
+</form>
+
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload PDF File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('saved_files') }}">Saved Files</a>
+    <a href="{{ url_for('compare_files') }}">Compare PDFs</a>
+    <a href="{{ url_for('comparison_files') }}">Comparisons</a>
+</div>
+
+<div class="main">
+    <h1>Upload a PDF File</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+</div>
+
+</body>
+</html>
+
